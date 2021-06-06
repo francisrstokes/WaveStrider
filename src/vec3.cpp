@@ -34,6 +34,22 @@ vec3 vec3::normalize() {
   );
 };
 
+vec3 vec3::max(double n) {
+  return vec3(
+    x > n ? x : n,
+    y > n ? y : n,
+    z > n ? z : n
+  );
+};
+
+vec3 vec3::min(double n) {
+  return vec3(
+    x < n ? x : n,
+    y < n ? y : n,
+    z < n ? z : n
+  );
+};
+
 vec3 vec3::operator+(const vec3 &b) {
   return vec3(this->x + b.x, this->y + b.y, this->z + b.z);
 };

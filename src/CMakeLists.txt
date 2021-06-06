@@ -4,6 +4,7 @@ add_executable(WaveStrider
   canvas.cpp
   sdf.cpp
   ray.cpp
+  material.cpp
   vec3.cpp)
 
 target_link_libraries(

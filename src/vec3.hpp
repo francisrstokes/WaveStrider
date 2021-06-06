@@ -16,6 +16,8 @@ struct vec3 {
 
   // Methods
   vec3 normalize();
+  vec3 max(double n);
+  vec3 min(double n);
   vec3 clamp(double minVal, double maxVal);
   double dot(vec3 const &b);
   double length();

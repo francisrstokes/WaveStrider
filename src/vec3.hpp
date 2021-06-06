@@ -3,7 +3,8 @@
 
 namespace WaveStrider {
 
-struct vec3 {
+struct vec3
+{
   double x;
   double y;
   double z;
@@ -12,7 +13,7 @@ struct vec3 {
   vec3(double X, double Y, double Z);
   vec3(double n);
   vec3();
-  vec3(const vec3& v);
+  vec3(const vec3 &v);
 
   // Methods
   vec3 normalize();
@@ -37,7 +38,7 @@ struct vec3 {
   // Would ~ for normalize be awful? Probably
 
   // Debugging
-  friend std::ostream& operator<< (std::ostream &out, const vec3 &v);
+  friend std::ostream &operator<<(std::ostream &out, const vec3 &v);
 };
 
-}
+}// namespace WaveStrider

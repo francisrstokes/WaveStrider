@@ -15,18 +15,21 @@ namespace WaveStrider {
 
 namespace SDF {
 
-SDFResult Union(SDFResult a, SDFResult b) {
-  return (a.distance < b.distance) ? a : b;
-};
+  SDFResult Union(SDFResult a, SDFResult b)
+  {
+    return (a.distance < b.distance) ? a : b;
+  };
 
-SDFResult Intersection(SDFResult a, SDFResult b) {
-  return (a.distance > b.distance) ? a : b;
-};
+  SDFResult Intersection(SDFResult a, SDFResult b)
+  {
+    return (a.distance > b.distance) ? a : b;
+  };
 
-SDFResult Difference(SDFResult a, SDFResult b) {
-  return (-a.distance > b.distance) ? a : b;
-};
+  SDFResult Difference(SDFResult a, SDFResult b)
+  {
+    return (-a.distance > b.distance) ? a : b;
+  };
 
-}
+}// namespace SDF
 
-};
+};// namespace WaveStrider

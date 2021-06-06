@@ -6,7 +6,8 @@
 
 namespace WaveStrider {
 
-struct Canvas {
+struct Canvas
+{
   uint32_t width;
   uint32_t height;
   std::vector<vec3> data;
@@ -18,5 +19,4 @@ struct Canvas {
   bool write(std::string filename);
 };
 
-};
-
+};// namespace WaveStrider

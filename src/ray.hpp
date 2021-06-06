@@ -4,7 +4,8 @@
 
 namespace WaveStrider {
 
-struct Ray {
+struct Ray
+{
 
 public:
   vec3 origin;
@@ -13,16 +14,14 @@ public:
   double distance;
 
 
-  Ray(vec3 o, vec3 d) :
-    origin{o}, direction{d}, point{vec3(o)} {};
+  Ray(vec3 o, vec3 d) : origin{ o }, direction{ d }, point{ vec3(o) } {};
 
-  Ray() :
-    origin{vec3()}, direction{vec3()}, point{vec3()} {};
+  Ray() : origin{ vec3() }, direction{ vec3() }, point{ vec3() } {};
 
-  ~Ray() {};
+  ~Ray(){};
 
   vec3 advance(double amount);
   void reset(vec3 direction);
 };
 
-}
+}// namespace WaveStrider

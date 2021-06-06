@@ -7,18 +7,19 @@ namespace WaveStrider {
 
 struct SDFObject;
 
-struct SDFResult {
+struct SDFResult
+{
   double distance;
-  const SDFObject* obj;
+  const SDFObject *obj;
   vec3 position;
 
-  SDFResult(double d, const SDFObject* o, vec3 pos)
-    : distance{d}, obj{o}, position{pos} {};
+  SDFResult(double d, const SDFObject *o, vec3 pos)
+    : distance{ d }, obj{ o }, position{ pos } {};
 
   SDFResult()
-    : distance{std::numeric_limits<double>::infinity()},
-      obj{nullptr},
-      position {vec3()} {};
+    : distance{ std::numeric_limits<double>::infinity() },
+      obj{ nullptr },
+      position{ vec3() } {};
 };
 
-};
+};// namespace WaveStrider

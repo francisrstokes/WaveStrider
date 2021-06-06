@@ -14,12 +14,14 @@
 
 namespace WaveStrider {
 
-struct Sphere : SDFObject {
+struct Sphere : SDFObject
+{
   double r;
 
-  Sphere(vec3 pos, double radius) : r{radius} {
+  Sphere(vec3 pos, double radius) : r{ radius }
+  {
     m = new Phong();
-    auto phong = (Phong*)(m);
+    auto phong = (Phong *)(m);
     phong->diffuse = 0.6;
     phong->ambient = 0.1;
     phong->ambientColor = vec3(0.0, 0.0, 0.8);
@@ -27,21 +29,24 @@ struct Sphere : SDFObject {
     position = pos;
   };
 
-  ~Sphere() {
+  ~Sphere()
+  {
     delete m;
   }
 
-  SDFResult getDistanceResult(vec3 p) {
+  SDFResult getDistanceResult(vec3 p)
+  {
     double dist = (p - position).length() - r;
     return SDFResult(dist, this, p);
   }
-
 };
 
-struct Plane : SDFObject {
-  Plane(vec3 pos) {
+struct Plane : SDFObject
+{
+  Plane(vec3 pos)
+  {
     m = new Phong();
-    auto phong = (Phong*)(m);
+    auto phong = (Phong *)(m);
     phong->diffuse = 0.7;
     phong->ambient = 0.1;
     phong->specular = 0.3;
@@ -51,45 +56,46 @@ struct Plane : SDFObject {
     position = pos;
   };
 
-  ~Plane() {
+  ~Plane()
+  {
     delete m;
   }
 
-  SDFResult getDistanceResult(vec3 p) {
+  SDFResult getDistanceResult(vec3 p)
+  {
     return SDFResult((p.y + position.y + sin(p.x * 1.0)), this, p);
   }
-
 };
 
-struct MainScene : Scene {
+struct MainScene : Scene
+{
 
   Sphere s;
   Plane p;
-  std::vector<ILight*> lights;
+  std::vector<ILight *> lights;
 
   DirectionalLight dl = DirectionalLight(
     vec3(1.0, 0.0, 0.0),
     0.1,
-    vec3(0.2, 0.4, 0.0).normalize()
-  );
+    vec3(0.2, 0.4, 0.0).normalize());
 
-  MainScene() :
-    s{vec3(-1.0, 0.0, 8.0), 1.0},
-    p{vec3(0.0, 4.0, 0.0)},
-    lights{}
+  MainScene() : s{ vec3(-1.0, 0.0, 8.0), 1.0 },
+                p{ vec3(0.0, 4.0, 0.0) },
+                lights{}
   {
     lights.push_back(&dl);
   };
-  ~MainScene() {};
+  ~MainScene(){};
 
-  SDFResult getDistanceResult(vec3 point) {
+  SDFResult getDistanceResult(vec3 point)
+  {
     return SDF::Union(s.getDistanceResult(point), p.getDistanceResult(point));
   };
 
-  std::vector<ILight*> getLights() { return lights; };
+  std::vector<ILight *> getLights() { return lights; };
 };
 
-};
+};// namespace WaveStrider
 
 using namespace WaveStrider;
 
@@ -97,7 +103,8 @@ constexpr double MAX_DIST = 100.0;
 constexpr double EPSILON = 0.01;
 constexpr int MAX_STEPS = 100;
 
-SDFResult rayMarch(Scene* scene, Ray* ray) {
+SDFResult rayMarch(Scene *scene, Ray *ray)
+{
   SDFResult result;
   result.distance = 0;
   int i = 0;
@@ -114,20 +121,18 @@ SDFResult rayMarch(Scene* scene, Ray* ray) {
   return result;
 };
 
-vec3 getNormal(Scene* scene, SDFResult res) {
+vec3 getNormal(Scene *scene, SDFResult res)
+{
   double d = scene->getDistanceResult(res.position).distance;
   double e = 0.01;
 
-  auto n = vec3(d) - vec3(
-    scene->getDistanceResult(res.position - vec3(e, 0, 0)).distance,
-    scene->getDistanceResult(res.position - vec3(0, e, 0)).distance,
-    scene->getDistanceResult(res.position - vec3(0, 0, e)).distance
-  );
+  auto n = vec3(d) - vec3(scene->getDistanceResult(res.position - vec3(e, 0, 0)).distance, scene->getDistanceResult(res.position - vec3(0, e, 0)).distance, scene->getDistanceResult(res.position - vec3(0, 0, e)).distance);
 
   return n.normalize();
 };
 
-int main() {
+int main()
+{
   uint32_t w = 1280;
   uint32_t h = 720;
   auto dim = vec3(w, h, 1);
@@ -140,7 +145,7 @@ int main() {
 
   for (uint32_t y = 0; y < h; y++) {
     for (uint32_t x = 0; x < w; x++) {
-      auto fragCoord = vec3(-(double)w/2.0 + (double)x, -(double)h/2.0 + (double)h - (double)y, 0.0);
+      auto fragCoord = vec3(-(double)w / 2.0 + (double)x, -(double)h / 2.0 + (double)h - (double)y, 0.0);
       auto uv = fragCoord / vec3((double)h);
 
       ray.reset(vec3(uv.x, uv.y, 1.0).normalize());
@@ -154,8 +159,7 @@ int main() {
           uv,
           result.position,
           getNormal(&scene, result),
-          scene.getLights()
-        );
+          scene.getLights());
       }
 
       canvas.put(x, y, col);

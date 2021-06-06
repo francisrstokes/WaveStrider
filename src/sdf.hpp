@@ -9,18 +9,19 @@
 
 namespace WaveStrider {
 
-struct SDFObject {
-  IMaterial* m;
+struct SDFObject
+{
+  IMaterial *m;
   vec3 position;
   virtual SDFResult getDistanceResult(vec3 p) = 0;
 
-  virtual ~SDFObject() {};
+  virtual ~SDFObject(){};
 };
 
 namespace SDF {
   SDFResult Union(SDFResult a, SDFResult b);
   SDFResult Intersection(SDFResult a, SDFResult b);
   SDFResult Difference(SDFResult a, SDFResult b);
-}
+}// namespace SDF
 
-};
+};// namespace WaveStrider
